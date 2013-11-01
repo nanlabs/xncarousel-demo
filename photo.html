@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Carousel Demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/jquery.xteam.photocarousel.min.css" rel="stylesheet">
+
+    <style>
+        /* Move down content because we have a fixed navbar that is 50px tall */
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Carousel</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Hero</a></li>
+                <li class="active"><a href="#">Photo</a></li>
+                <li><a href="noanim.html">No Animation</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Photo Carousel</h1>
+        <p>This example shows a photo carousel, with more than one item per page, slide transition and touch support.</p>
+        <p>Also notice the items are not simple images, if you put the mouse over you'll get a caption and if you click, the item will be selected.</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="viewport photo-carousel">
+                <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+                <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; X-Team / NaN Labs 2013</p>
+    </footer>
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery.xteam.carousel.min.js"></script>
+<script type="text/javascript">
+
+    var itemTemplate = function(item) {
+        var itemTemplate = '<a href="/photos/album/'+item.slug+'" class="item"> <figure ><span class="thumb"><img src="' + item.image + '" alt="" width="200" height="170" draggable="false"></span><figcaption>'+item.name+'</figcaption></figure></a>';
+
+        return itemTemplate;
+    };
+
+    var items = [
+        {
+            "name": "Top 13 Rehearsals",
+            "slug": "top-13-rehearsals",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Rehearsals/Episode%2014/001-213-rehearsals-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Pepsi PreShow Live - BTS, Top 16",
+            "slug": "pepsi-preshow-live-bts-top-16",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Behind%20The%20Scenes%20Gallery/PreShow%201/01-BTS-Preshow-1320x744-200x170.jpg"
+        },
+        {
+            "name": "The Top 13 Strike a Pose",
+            "slug": "the-top-13-strike-a-pose",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Portrait%20Gallery/Episode%2014%20Portrait%20Gallery/01-top-13-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Top 16 House Party",
+            "slug": "top-16-house-party",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/One%20off%20Galleries/Judges%20and%20their%20finalists/britney-teens-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Best of Episode 09 - Judges' Homes",
+            "slug": "best-of-episode-09-judges-homes",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Best%20of%20Gallery/Best%20of%20Episode/Episode%209%20Part%202/01-BOE%20209-judges-homes-1010-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Top 13 - Behind the Scenes",
+            "slug": "top-13-behind-the-scenes",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Behind%20The%20Scenes%20Gallery/Episode%2014/06-214-bts-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Top 13 Eliminations - Behind the Scenes",
+            "slug": "top-13-eliminations-behind-the-scenes",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Behind%20The%20Scenes%20Gallery/Episode%2015/01-215-boe-1320x744-200x170.jpg"
+        },
+        {
+            "name": "The Finalists' Hollywood Mansion",
+            "slug": "the-finalists-hollywood-mansion",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/One%20off%20Galleries/Mansion%20Gallery/01-mansion-tour-1101-1320x744-200x170.jpg"
+        },
+        {
+            "name": "Season 1's Top 12 Performances",
+            "slug": "season-1s-top-12-performances",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%201/Best%20of%20Season%201%20Performances/astro-200x170.jpg"
+        },
+        {
+            "name": "Top 16 - Rehearsals",
+            "slug": "top-16-rehearsals",
+            "image": "http://static-media.thexfactorusa.com/img/X_Factor/Season%202/Rehearsals/Episode%2012/01-rehearsal-212-1320x744-200x170.jpg"
+        }
+    ];
+
+
+    $(function() {
+        $(".viewport.photo-carousel").carousel({
+            touchEnabled: true,
+            pageSize: 3,
+            pagingIndicators: true,
+            animationType: 'slide',
+            moveSpeed: 500,
+            avoidLeftRightMargins: true,
+            itemTemplate: itemTemplate
+        });
+
+        $(".viewport.photo-carousel").carousel('render', items);
+
+    });
+
+</script>
+
+
+
+
+</body>
+</html>
