@@ -58,7 +58,9 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Hero Carousel</h1>
-        <p>This example shows a hero carousel, with full images as item, automatic scrolling and one item per page</p>
+        <p>This example shows a <strong>hero</strong> carousel, with images as the items and automatic loop scrolling.</p>
+        <p class="small">It contains one item per page and the transition between them is done using a fade effect.</p>
+        <p class="small">The navigation arrows only appear when the mouse cursor is over the carousel.</p>
     </div>
 </div>
 
@@ -109,6 +111,8 @@
             touchEnabled: false,
             pageSize: 1,
             pagingIndicators: true,
+            circularNavigation: true,
+            pageInterval: 3000,
             animationType: 'fade',
             moveSpeed: 500,
             itemWidth: 180,
