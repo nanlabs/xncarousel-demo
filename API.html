@@ -26,17 +26,30 @@
             margin: 0 auto;
             float: none;
         }
-       
+
         .carousel-pagination, .state {
             margin-top: 30px;
         }
 
-        #output {
+        #output-message {
             display: inline-block;
         }
 
         .hide {
             display: none;
+        }
+
+        .buttonbar {
+            margin-top: 40px;
+        }
+
+        .buttonbar .row {
+            margin-bottom: 10px;
+        }
+
+        ul
+        {
+            list-style-type: none;
         }
 
     </style>
@@ -76,65 +89,90 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Photo Carousel</h1>
-        <p>This example shows a <strong>photo</strong> carousel, with more than one item per page and slide transition.</p>
-        <p class="small">Also notice the items are not just simple images, if you pass the mouse over you'll get a caption.</p>
-        <p class="small">Scrolling is manual and it doesn't loop, if you reach the end, the "next" arrow will disappear.</p>
+        <h1>Carousel API and Events</h1>
+        <p>This example shows the carousel's <strong>API</strong> and <strong>Events</strong>.</p>
+        <p class="small">The API allows the client applications to control different aspects of the carousel using Javascript.</p>
+        <p class="small">The events allow the carousel to notify the client of important actions, so they can include their own custom logic.</p>
+        <p class="small">Click the buttons below to call the different methods of the API. Any important messages as well as event notifications will be displayed below.</p>
     </div>
 </div>
 
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
-        <div class="col-md-12">
-            <div class="viewport photo-carousel">
-                <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
-                <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="viewport photo-carousel">
+                        <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+                        <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+
+                <div id="apiDemo">
+                    <div class="viewport api">
+                    </div>
+                    <div class="buttonbar">
+                        <div class="modifiers hide col-md-12 col-center text-center">
+                            <input type="button" class="btn btn-primary" id="btnAddItem" value="Add item"></input>
+                            <input type="button" class="btn btn-primary" id="btnRemoveFirst" value="Remove first item"></input>
+                            <input type="button" class="btn btn-primary" class="btn btn-primary" id="btnRemoveSelected" value="Remove selected item"></input>
+                            <input type="button" class="btn btn-primary" id="btnClear" value="Clear"></input>
+                        </div>
+                        <div class="carousel-selection col-md-12 col-center text-center">
+                            <input type="button" class="btn btn-primary" id="btnSelect" value="Select 2nd item"></input>
+                            <input type="button" class="btn btn-primary" id="btnClearSelect" value="Clear Selection"></input>
+                        </div>
+                        <div class="carousel-pagination col-md-12 col-center text-center">
+                            <input type="button" class="btn btn-primary" id="btnBack" value="Go Back"></input>
+                            <input type="button" class="btn btn-primary" id="btnNext" value="Go Next"></input>
+                            <input type="button" class="btn btn-primary" id="btnFirst" value="Go to First"></input>
+                            <input type="button" class="btn btn-primary" id="btnLast" value="Go to Last"></input>
+                            <input type="button" class="btn btn-primary" id="btnGotoPage" value="Go to 2nd Page"></input>
+                        </div>
+                        <div class="state row col-md-12 col-center text-center">
+                            <div class="row">
+                                <input type="button" class="btn btn-primary" id="btnGetItemCount" value="Get Item Count"></input>
+                                <input type="button" class="btn btn-primary" id="btnGetPageCount" value="Get Page Count"></input>
+                                <input type="button" class="btn btn-primary" id="btnGetSelectedIndex" value="Get Selected Index"></input>
+                            </div>
+                            <div class="row">
+                                <input type="button" class="btn btn-primary" id="btnGetItemsForPage" value="Get Items For 2nd Page"></input>
+                                <input type="button" class="btn btn-primary" id="btnGetCurrentPage" value="Get Current Page Index"></input>
+                                <input type="button" class="btn btn-primary" id="btnGetLastItem" value="Get Last Item"></input>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <p class="row">
+                    Last Message:
+                </p>
+                <div class="alert alert-warning row col-md-12" id="output-message"></div>
+            </div>
+            <div class="row">
+                <p class="row">
+                    Events:
+                </p>
+                <div class="alert alert-success row col-md-12" id="output-events">
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-
-
-        <div id="apiDemo">
-            <div class="viewport api">
-            </div>
-            <div class="buttonbar">
-                <div class="modifiers hide col-md-8 modifiers col-center">
-                    <input type="button" class="btn btn-primary" id="btnAddItem" value="Add item"></input>
-                    <input type="button" class="btn btn-primary" id="btnRemoveFirst" value="Remove first item"></input>
-                    <input type="button" class="btn btn-primary" class="btn btn-primary" id="btnRemoveSelected" value="Remove selected item"></input>
-                    <input type="button" class="btn btn-primary" id="btnClear" value="Clear"></input>
-                    <input type="button" class="btn btn-primary" id="btnSelect" value="Select 2nd item"></input>
-                    <input type="button" class="btn btn-primary" id="btnClearSelect" value="Clear Selection"></input>
-                </div>
-                <div class="carousel-pagination col-md-6 col-center">
-                    <input type="button" class="btn btn-primary" id="btnBack" value="Go Back"></input>
-                    <input type="button" class="btn btn-primary" id="btnNext" value="Go Next"></input>
-                    <input type="button" class="btn btn-primary" id="btnFirst" value="Go to First"></input>
-                    <input type="button" class="btn btn-primary" id="btnLast" value="Go to Last"></input>
-                    <input type="button" class="btn btn-primary" id="btnGotoPage" value="Go to 3rd Page"></input>
-                </div>
-                <div class="state row col-md-10 col-center">
-                    <input type="button" class="btn btn-primary" id="btnGetItemCount" value="Get Item Count"></input>
-                    <input type="button" class="btn btn-primary" id="btnGetPageCount" value="Get Page Count"></input>
-                    <input type="button" class="btn btn-primary" id="btnGetSelectedIndex" value="Get Selected Index"></input>
-                    <input type="button" class="btn btn-primary" id="btnGetItemsForPage" value="Get Items For 2nd Page"></input>
-                    <input type="button" class="btn btn-primary" id="btnGetCurrentPage" value="Get Current Page Index"></input>
-                    <input type="button" class="btn btn-primary" id="btnGetLastItem" value="Get Last Item"></input>
-                </div>
-            </div>
-            <div class="row">
-                <div class="alert alert-success hide" id="output" style="border-style:solid;"></div>
-            </div>
-        </div>
-
     <hr>
-
-    <footer>
-        <p>&copy; X-Team / NaN Labs 2013</p>
-    </footer>
+    <div class="row">
+        <footer class="col-md-12">
+            <p>&copy; X-Team / NaN Labs 2013</p>
+        </footer>
+    </div>
 </div> <!-- /container -->
 
 
@@ -218,113 +256,151 @@
             itemTemplate: itemTemplate
         });
 
+        // Modification API
+
+        function notify(text) {
+            $("#output-message").removeClass('hide');
+            $("#output-message").html("<i>" + text + "</i><br>");
+        }
+
+        $("#btnAddItem").click(function(e) {
+            var total = carousel.getItemCount();
+            carousel.addItem({
+                "id": total,
+                "name": "Item " + total,
+                "thumbnailURL": "http://static-media.fox.com/img/Fox.com/105/703/TheFollowing_FOL106_2500_145x80_19477059529.jpg",
+                "airdate": "2013-09-22",
+                "expirationDays": 5 + total
+            });
+
+            notify("Item Added");
+        });
+
+        $("#btnRemoveFirst").click(function(e) {
+            carousel.removeItem(0);
+            notify("Item 0 removed");
+        });
+
+        $("#btnRemoveSelected").click(function(e) {
+            carousel.removeItem(carousel.getSelectedIndex());
+            notify("Selected Item Removed");
+        });
+
+        $("#btnClear").click(function(e) {
+            carousel.clear();
+            notify("Cleared");
+        });
+
+        $("#btnSelect").click(function(e) {
+            carousel.selectItem(1);
+            notify("Second Item selected");
+        });
+
+         $("#btnClearSelect").click(function(e) {
+            carousel.clearSelection();
+            notify("Selection Removed");
+        });
+
+        // Pagination API
+
+        $("#btnBack").click(function(e) {
+            carousel.goBack();
+            notify("Navigated to previous page");
+        });
+
+        $("#btnNext").click(function(e) {
+            carousel.goNext();
+            notify("Navigated to next page");
+        });
+
+        $("#btnFirst").click(function(e) {
+            carousel.goToFirstPage();
+            notify("Navigated to first page");
+        });
+
+        $("#btnLast").click(function(e) {
+            carousel.goToLastPage();
+            notify("Navigated to last page");
+        });
+
+        $("#btnGotoPage").click(function(e) {
+            carousel.goToPage(1);
+            notify("Navigated to 2nd page");
+        });
+
+
+        // Information API
+        function display(text, value) {
+            $("#output-message").removeClass('hide');
+            $("#output-message").html("<i>" + text + "</i>: <strong>" + value + "</strong><br>");
+        }
+
+        $("#btnGetItemCount").click(function(e) {
+            display('Item Count', carousel.getItemCount());
+        });
+
+        $("#btnGetPageCount").click(function(e) {
+            display('Page Count', carousel.getPageCount());
+        });
+
+        $("#btnGetSelectedIndex").click(function(e) {
+            display('Selected Index', carousel.getSelectedIndex());
+        });
+
+        $("#btnGetItemsForPage").click(function(e) {
+            display('Item indices for 2nd page', carousel.getItemIndicesForPage(1));
+        });
+
+        $("#btnGetCurrentPage").click(function(e) {
+            display('Current Page Index', carousel.getCurrentPage());
+        });
+
+        $("#btnGetLastItem").click(function(e) {
+            display('Last Item Index', carousel.getLastItemIndex());
+        });
+
+        var eventMessageIndex = 1;
+        function displayEvent(text) {
+            var $eventContainer = $("#output-events");
+            var $eventMessages = $eventContainer.children(".event-item");
+            if($eventMessages.length > 10) $eventMessages.first().remove();
+            $("#output-events").append("<div class='event-item'>" + (eventMessageIndex++) + ". " + text + "</div>");
+        }
+
+        // Events
+        /*carousel.on('carousel:initialized', function() {
+            displayEvent("Carousel Initialized");
+        });*/
+        carousel.on('carousel:pageChangeStart', function(e, from, to) {
+            displayEvent("Page Change Started: " + from + " -> " + to);
+        });
+       /* carousel.on('carousel:pageChanged', function(e) {
+            displayEvent("Page Change Done before animation: new Page " + e[0]);
+        });*/
+        carousel.on('carousel:itemsCleared', function() {
+            displayEvent("Cleared");
+        });
+        carousel.on('carousel:itemRemoved', function() {
+            displayEvent("Item removed");
+        });
+        carousel.on('carousel:itemSelected', function(e, index) {
+            displayEvent("Item Selected: " + index);
+        });
+        carousel.on('carousel:selectionClear', function(e) {
+            displayEvent("Selection Cleared");
+        });
+        carousel.on('carousel:itemAdded', function(e, item) {
+            displayEvent("Item Added: " + JSON.stringify(item));
+        });
+        carousel.on('carousel:rendered', function(e) {
+            displayEvent("Carousel Rendered");
+        });
+        carousel.on('carousel:pageChangeEnded', function(e, from, to) {
+            displayEvent("Page Change Complete: " + from + " -> " + to);
+        });
+
+
         carousel.render(items);
-
-
-                    // Modification API
-
-                    function notify(text) {
-                        $("#output").removeClass('hide');
-                        $("#output").html("<i>" + text + "</i><br>");
-                    }
-
-                    $("#btnAddItem").click(function(e) {
-                        var total = carousel.getItemCount();
-                        carousel.addItem({
-                            "id": total,
-                            "name": "Item " + total,
-                            "thumbnailURL": "http://static-media.fox.com/img/Fox.com/105/703/TheFollowing_FOL106_2500_145x80_19477059529.jpg",
-                            "airdate": "2013-09-22",
-                            "expirationDays": 5 + total
-                        });
-
-                        notify("Item Added");
-                    });
-
-                    $("#btnRemoveFirst").click(function(e) {
-                        carousel.removeItem(0);
-                        notify("Item 0 removed");
-                    });
-
-                    $("#btnRemoveSelected").click(function(e) {
-                        carousel.removeItem(carousel.getSelectedIndex());
-                        notify("Selected Item Removed");
-                    });
-
-                    $("#btnClear").click(function(e) {
-                        carousel.clear();
-                        notify("Cleared");
-                    });
-
-                    $("#btnSelect").click(function(e) {
-                        carousel.selectItem(1);
-                        notify("Second Item selected");
-                    });
-
-                     $("#btnClearSelect").click(function(e) {
-                        carousel.clearSelection();
-                        notify("Selection Removed");
-                    });
-
-                    // Pagination API
-
-                    $("#btnBack").click(function(e) {
-                        carousel.goBack();
-                        notify("Navigated to previous page");
-                    });
-
-                    $("#btnNext").click(function(e) {
-                        carousel.goNext();
-                        notify("Navigated to next page");
-                    });
-
-                    $("#btnFirst").click(function(e) {
-                        carousel.goToFirstPage();
-                        notify("Navigated to first page");
-                    });
-
-                    $("#btnLast").click(function(e) {
-                        carousel.goToLastPage();
-                        notify("Navigated to last page");
-                    });
-
-                    $("#btnGotoPage").click(function(e) {
-                        carousel.goToPage(2);
-                        notify("Navigated to 3rd page");
-                    });
-
-
-                    // Information API
-                    function display(text, value) {
-                        $("#output").removeClass('hide');
-                        $("#output").html("<i>" + text + "</i>: <strong>" + value + "</strong><br>");
-                    }
-
-                    $("#btnGetItemCount").click(function(e) {
-                        display('Item Count', carousel.getItemCount());
-                    });
-
-                    $("#btnGetPageCount").click(function(e) {
-                        display('Page Count', carousel.getPageCount());
-                    });
-
-                    $("#btnGetSelectedIndex").click(function(e) {
-                        display('Selected Index', carousel.getSelectedIndex());
-                    });
-
-                    $("#btnGetItemsForPage").click(function(e) {
-                        display('Item indices for 2nd page', carousel.getItemIndicesForPage(1));
-                    });
-
-                    $("#btnGetCurrentPage").click(function(e) {
-                        display('Current Page Index', carousel.getCurrentPage());
-                    });
-
-                    $("#btnGetLastItem").click(function(e) {
-                        display('Last Item Index', carousel.getLastItemIndex());
-                    });
- 
-
     });
 
 </script>
