@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <link href="css/jquery.xteam.photocarousel.min.css" rel="stylesheet">
+    <link href="css/jquery.xteam.photocarouselAPI.min.css" rel="stylesheet">
 
     <style>
         /* Move down content because we have a fixed navbar that is 50px tall */
@@ -114,8 +114,6 @@
 
 
                 <div id="apiDemo">
-                    <div class="viewport api">
-                    </div>
                     <div class="buttonbar">
                         <div class="modifiers hide col-md-12 col-center text-center">
                             <input type="button" class="btn btn-primary" id="btnAddItem" value="Add item"></input>
@@ -186,10 +184,11 @@
 <script type="text/javascript">
 
     var itemTemplate = function(item) {
-        var itemTemplate = '<a href="/photos/album/'+item.slug+'" class="item"> <figure ><span class="thumb"><img src="' + item.image + '" alt="" width="200" height="170" draggable="false"></span><figcaption>'+item.name+'</figcaption></figure></a>';
+      var itemTemplate = '<a href="/photos/album/'+item.slug+'" class="item"> <figure ><span style="height:100%" class="thumb"><img style="height:100%" src="' + item.image + '" alt="" width="200" height="170" draggable="false"></span><figcaption>'+item.name+'</figcaption></figure></a>';
 
-        return itemTemplate;
+      return itemTemplate;
     };
+
 
     var items = [
         {

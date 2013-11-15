@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Carousel Demo</title>
+
+    <link href="css/jquery.xteam.herocarousel.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+    <div class="viewport plugin hero">
+    <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+    <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+  </div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery.xteam.carousel.min.js"></script>
+<script type="text/javascript">
+
+    var images = [
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowRecap_v5_repositioned-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xf_s3_halloween_mask_promo_a_3-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/Xfactor_promo_a_photoRecap_2-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/promo_a_exitinterviews-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_TXF_WED_judges_1400x440-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowClips_v2-carousel.jpg"
+    ];
+
+    var heroItemTemplate = function (item) {
+        var itemTemplate = '<span class="thumbnail-wrapper"><img class="video-thumbnail" src="' + item + '"/></span>';
+
+        return itemTemplate;
+    };
+
+    $(function () {
+        $(".viewport").carousel({
+            touchEnabled: false,
+            pageSize: 1,
+            pagingIndicators: true,
+            circularNavigation: true,
+            animationType: 'none',
+            moveSpeed: 500,
+            itemHeight: 110,
+            alwaysShowIndicators: true,
+            itemTemplate: heroItemTemplate
+        });
+
+        $(".viewport").carousel('render', images);
+    });
+</script>
+
+
+
+
+</body>
+</html>

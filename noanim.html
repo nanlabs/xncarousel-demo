@@ -10,6 +10,10 @@
 
     <title>Carousel Demo</title>
 
+    <!-- example devices stylesheet -->
+    <link rel="stylesheet" media="screen" href="css/mainc164.css?v=9">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
@@ -20,6 +24,12 @@
         body {
             padding-top: 50px;
             padding-bottom: 20px;
+        }
+
+        /*Prevent bootstap default behaviour*/
+        .device , .device:before, .device:after {
+            box-sizing: content-box;
+            -webkit-box-sizing: content-box;
         }
     </style>
 
@@ -65,13 +75,250 @@
 </div>
 
 <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="viewport standalone hero">
-            </div>
-        </div>
-    </div>
+  
+
+
+
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('iframe').attr('src', window.location.origin + '/carousel-demo/' + 'noanimcarousel.html');
+        });
+    </script>
+
+        
+    <section id='devices'>
+
+        
+                                                
+    <div class='deviceWrap iphone-portrait'>
+        <div class='device' style='width: 320px; height: 416px; padding-top: 20px;padding-bottom: 44px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 320px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 44px'></div>
+            
+            
+            <iframe src='about:blank' id='iphone-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>iPhone 3+4 portrait<span> · width: 320px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap iphone-landscape'>
+        <div class='device' style='width: 480px; height: 256px; padding-top: 20px;padding-bottom: 44px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 480px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 44px'></div>
+            
+            
+            <iframe src='about:blank' id='iphone-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='indexf143.html?url=about:blank&amp;device=iphone-landscape'><em>iPhone 3+4 landscape<span> · width: 480px</span></em></a></div>
+
+
+    <div class='deviceWrap iphone-5-portrait'>
+        <div class='device' style='width: 320px; height: 504px; padding-top: 20px;padding-bottom: 44px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 320px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 44px'></div>
+            
+            
+            <iframe src='about:blank' id='iphone-5-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>iPhone 5 portrait<span> · width: 320px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap iphone-5-landscape'>
+        <div class='device' style='width: 568px; height: 256px; padding-top: 20px;padding-bottom: 44px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 568px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 44px'></div>
+            
+            
+            <iframe src='about:blank' id='iphone-5-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>iPhone 5 landscape<span> · width: 568px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap android-240x320-portrait'>
+        <div class='device' style='width: 240px; height: 300px; padding-top: 20px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 240px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='android-240x320-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Crappy Android portrait<span> · width: 240px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap android-240x320-landscape'>
+        <div class='device' style='width: 320px; height: 220px; padding-top: 20px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 320px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='android-240x320-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Crappy Android landscape<span> · width: 320px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap android-384x620-portrait'>
+        <div class='device' style='width: 384px; height: 600px; padding-top: 20px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 384px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='android-384x620-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Android (Nexus 4) portrait<span> · width: 384px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap android-620x384-landscape'>
+        <div class='device' style='width: 600px; height: 364px; padding-top: 20px;'>
+
+                            <div class='flashingTop' style='height: 20px; width: 600px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='android-620x384-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Android (Nexus 4) landscape<span> · width: 600px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap ipad-portrait'>
+        <div class='device' style='width: 768px; height: 929px; padding-top: 95px;'>
+
+                            <div class='flashingTop' style='height: 95px; width: 768px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='ipad-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>iPad portrait<span> · width: 768px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap ipad-landscape'>
+        <div class='device' style='width: 1024px; height: 675px; padding-top: 93px;'>
+
+                            <div class='flashingTop' style='height: 93px; width: 1024px'><span class='time'></span></div>
+            
+            
+            
+            <iframe src='about:blank' id='ipad-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>iPad landscape<span> · width:1024px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap kindle-portrait'>
+        <div class='device' style='width: 600px; height: 820px; padding-top: 144px;padding-bottom: 60px;'>
+
+                            <div class='flashingTop' style='height: 144px; width: 600px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 60px'></div>
+            
+            
+            <iframe src='about:blank' id='kindle-portrait' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Kindle portrait<span> · width: 600px</span></em></a></div>
+
+
+                            
+        
+                                                
+    <div class='deviceWrap kindle-landscape'>
+        <div class='device' style='width: 1024px; height: 396px; padding-top: 144px;padding-bottom: 60px;'>
+
+                            <div class='flashingTop' style='height: 144px; width: 1024px'><span class='time'></span></div>
+            
+                            <div class='flashingBottom' style='height: 60px'></div>
+            
+            
+            <iframe src='about:blank' id='kindle-landscape' style=''></iframe>
+
+            
+        </div><!-- /device -->
+    </div><!-- /deviceWrap -->
+
+    <div class='deviceTitle'><a href='#'><em>Kindle landscape<span> · width: 1024px</span></em></a></div>
+
+
 
     <hr>
 
@@ -79,50 +326,6 @@
         <p>&copy; X-Team / NaN Labs 2013</p>
     </footer>
 </div> <!-- /container -->
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-<script src="js/jquery.xteam.carousel.min.js"></script>
-<script type="text/javascript">
-
-    var images = [
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowRecap_v5_repositioned-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xf_s3_halloween_mask_promo_a_3-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/Xfactor_promo_a_photoRecap_2-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/promo_a_exitinterviews-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_TXF_WED_judges_1400x440-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowClips_v2-carousel.jpg"
-    ];
-
-    var heroItemTemplate = function (item) {
-        var itemTemplate = '<span class="thumbnail-wrapper"><img class="video-thumbnail" src="' + item + '"/></span>';
-
-        return itemTemplate;
-    };
-
-    $(function () {
-        $(".viewport").carousel({
-            touchEnabled: false,
-            pageSize: 1,
-            pagingIndicators: true,
-            circularNavigation: true,
-            animationType: 'none',
-            moveSpeed: 500,
-            itemHeight: 110,
-            alwaysShowIndicators: true,
-            itemTemplate: heroItemTemplate
-        });
-
-        $(".viewport").carousel('render', images);
-    });
-</script>
-
-
 
 
 </body>
