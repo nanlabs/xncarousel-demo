@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Carousel Demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/jquery.xteam.herocarousel.min.css" rel="stylesheet">
+
+    <style>
+        /* Move down content because we have a fixed navbar that is 50px tall */
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Carousel</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Hero</a></li>
+                <li class="active"><a href="#">Hero (Desktop)</a></li>
+                <li><a href="photo.html">Photo</a></li>
+                <li><a href="photodesktop.html">Photo (Desktop)</a></li>
+                <li><a href="noanim.html">No Animation</a></li>
+                <li><a href="API.html">Carousel API</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Hero Carousel</h1>
+        <p>This example shows a <strong>hero</strong> carousel, with images as the items and automatic loop scrolling.</p>
+        <p class="small">It contains one item per page and the transition between them is done using a fade effect.</p>
+        <p class="small">The navigation arrows only appear when the mouse cursor is over the carousel.</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="viewport plugin hero">
+                <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+                <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; X-Team / NaN Labs 2013</p>
+    </footer>
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery.xteam.carousel.min.js"></script>
+<script type="text/javascript">
+
+    var images = [
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowRecap_v5_repositioned-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xf_s3_halloween_mask_promo_a_3-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/Xfactor_promo_a_photoRecap_2-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/promo_a_exitinterviews-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_TXF_WED_judges_1400x440-carousel.jpg",
+        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowClips_v2-carousel.jpg"
+    ];
+
+    var heroItemTemplate = function(item) {
+        var itemTemplate = '<span class="thumbnail-wrapper"><img class="video-thumbnail" src="' + item + '"/></span>';
+        return itemTemplate;
+    };
+
+    $(function() {
+        $(".viewport.plugin.hero").carousel({
+            touchEnabled: false,
+            pageSize: 1,
+            pagingIndicators: true,
+            circularNavigation: true,
+            pageInterval: 3000,
+            animationType: 'fade',
+            moveSpeed: 500,
+            itemWidth: 180,
+            itemHeight: 110,
+            itemTemplate: heroItemTemplate
+        });
+
+        $(".viewport.plugin.hero").carousel('render', images);
+
+    });
+
+</script>
+
+</body>
+</html>
