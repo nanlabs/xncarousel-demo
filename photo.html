@@ -10,14 +10,15 @@
 
     <title>Carousel Demo</title>
 
-    <!-- example devices stylesheet -->
-    <link rel="stylesheet" media="screen" href="css/mainc164.css?v=9">
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
+    <link href="css/photo-xncarousel.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="css/mainc164.css?v=9">
 
-    <link href="css/jquery.xteam.photocarousel.min.css" rel="stylesheet">
+    <!-- example devices stylesheet -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/less-1.5.0.min.js"></script>
 
     <style>
         /* Move down content because we have a fixed navbar that is 50px tall */
@@ -83,7 +84,7 @@
 
     <script type="text/javascript">
         $(window).load(function () {
-            $('iframe').attr('src', window.location.origin + '/carousel-demo/' + 'photocarousel.html');
+            $('iframe').attr('src', '/photocarousel.html');
         });
     </script>
 

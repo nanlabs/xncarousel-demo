@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,13 @@
 
     <title>Carousel Demo</title>
 
-    <link href="css/jquery.xteam.herocarousel.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/photo-xncarousel.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
+    <link rel="stylesheet/less" type="text/css" href="less/photo.less">
+
+    <script src="js/less-1.5.0.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,55 +28,82 @@
 <body>
 
 
-    <div class="viewport plugin hero">
-    <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
-    <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
-  </div>
+    <div class="xn-viewport plugin hero">
+        <div class="left-indicator">
+            <div class="chevron-container">
+                <div class="chevron left"></div>
+            </div>
+        </div>
+        <div class="right-indicator">
+            <div class="chevron-container">
+                <div class="chevron right"></div>
+            </div>
+        </div>
+    </div>
+    <div class="xn-pagination">
+        <div class="item-container">
+        </div>
+    </div>
 
 
-<!-- Bootstrap core JavaScript
+
+    <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-<script src="js/jquery.xteam.carousel.min.js"></script>
-<script type="text/javascript">
+    <script src="js/jquery.xnCarousel.js"></script>
+    <script type="text/javascript">
+        var randomizeColor = function() {
+            var color = Math.floor(Math.random() * 256).toString(16);
 
-    var images = [
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowRecap_v5_repositioned-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xf_s3_halloween_mask_promo_a_3-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/Xfactor_promo_a_photoRecap_2-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/promo_a_exitinterviews-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_TXF_WED_judges_1400x440-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowClips_v2-carousel.jpg"
-    ];
+            if (color.length == 1) {
+                color += '0';
+            }
 
-    var heroItemTemplate = function (item) {
-        var itemTemplate = '<span class="thumbnail-wrapper"><img class="video-thumbnail" src="' + item + '"/></span>';
+            return color;
+        };
 
-        return itemTemplate;
-    };
+        var buildImageUrl = function(item, size) {
+            var delay = item.delay || 0;
+            return "http://deelay.me/" + delay + "/http://dummyimage.com/" + size + "/" + randomizeColor() + randomizeColor() + randomizeColor() + ".png&text=%23%20" + item.id;
+        };
 
-    $(function () {
-        $(".viewport").carousel({
-            touchEnabled: false,
-            pageSize: 1,
-            pagingIndicators: true,
-            circularNavigation: true,
-            animationType: 'none',
-            moveSpeed: 500,
-            itemHeight: 110,
-            alwaysShowIndicators: true,
-            itemTemplate: heroItemTemplate
+
+        var itemTemplate = function(item) {
+            var itemTemplate = '<span class="thumbnail-wrapper">';
+            itemTemplate += '<figure>';
+            itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item, "1140x358") + '"/>';
+            itemTemplate += '<figcaption>' + item.name + '</figcaption>';
+            itemTemplate += '</figure>';
+            itemTemplate += '</span>';
+            return itemTemplate;
+        };
+
+        $(function() {
+            $(".xn-viewport.plugin.hero").xnCarousel({
+                touchEnabled: false,
+                pageSize: 1,
+                pagingIndicators: true,
+                circularNavigation: true,
+                pageInterval: 3000,
+                animationType: 'none',
+                loadingType: 'eager',
+                moveSpeed: 500,
+                itemTemplate: itemTemplate,
+                resonsive: true,
+                paginationContainerSelector: 'div.xn-pagination .item-container'
+            });
+            $.getJSON('js/data.json', function(data) {
+                $(".xn-viewport.plugin.hero").xnCarousel('render', data.results);
+            });
         });
-
-        $(".viewport").carousel('render', images);
-    });
-</script>
+    </script>
 
 
 
 
 </body>
+
 </html>

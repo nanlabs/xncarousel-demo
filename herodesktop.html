@@ -11,8 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
 
-    <link href="css/jquery.xteam.herocarousel.min.css" rel="stylesheet">
+    <script src="js/less-1.5.0.min.js"></script>
 
     <style>
         /* Move down content because we have a fixed navbar that is 50px tall */
@@ -20,6 +21,17 @@
             padding-top: 50px;
             padding-bottom: 20px;
         }
+        .xn-viewport .xn-overview .xn-carousel-item{
+            height: 100%;
+        }
+
+        .xn-pagination{
+            bottom: 10%;
+            top: 10px;
+        }
+
+
+
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -70,10 +82,14 @@
     <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-12">
-            <div class="viewport plugin hero">
-                <div class="left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
-                <div class="right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+            <div class="xn-viewport plugin hero">
+                <div class="xn-left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+                <div class="xn-right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
             </div>
+            <div class="xn-pagination">
+                <div class="item-container">
+            </div>
+    </div>
         </div>
     </div>
 
@@ -91,39 +107,50 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
-<script src="js/jquery.xteam.carousel.min.js"></script>
+<script src="js/jquery.xnCarousel.js"></script>
 <script type="text/javascript">
 
-    var images = [
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowRecap_v5_repositioned-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xf_s3_halloween_mask_promo_a_3-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/Xfactor_promo_a_photoRecap_2-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/promo_a_exitinterviews-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_TXF_WED_judges_1400x440-carousel.jpg",
-        "http://static-media.thexfactorusa.com/img/X_Factor/Season-3/Homepage/Promo-A/October/Week-8/xfactor_promo_a_ShowClips_v2-carousel.jpg"
-    ];
+    var randomizeColor = function() {
+        var color = Math.floor(Math.random() * 256).toString(16);
 
-    var heroItemTemplate = function(item) {
-        var itemTemplate = '<span class="thumbnail-wrapper"><img class="video-thumbnail" src="' + item + '"/></span>';
+        if(color.length == 1) { color += '0'; }
+
+        return color;
+    };
+
+    var buildImageUrl = function(item, size) {
+        var delay = item.delay || 0;
+        return  "http://deelay.me/" + delay + "/http://dummyimage.com/" + size + "/" + randomizeColor() + randomizeColor() + randomizeColor() + ".png&text=%23%20" + item.id;
+    };
+
+
+    var itemTemplate = function(item) {
+        var itemTemplate = '<span class="thumbnail-wrapper">';
+        itemTemplate += '<figure>';
+        itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item, "1140x358") + '"/>';
+        itemTemplate += '<figcaption>' + item.name+'</figcaption>';
+        itemTemplate += '</figure>';
+        itemTemplate += '</span>';      
         return itemTemplate;
     };
 
-    $(function() {
-        $(".viewport.plugin.hero").carousel({
+   $(function() {
+        $(".xn-viewport.plugin.hero").xnCarousel({
             touchEnabled: false,
             pageSize: 1,
             pagingIndicators: true,
             circularNavigation: true,
             pageInterval: 3000,
             animationType: 'fade',
+            loadingType:'eager',
             moveSpeed: 500,
-            itemWidth: 180,
-            itemHeight: 110,
-            itemTemplate: heroItemTemplate
+            itemTemplate: itemTemplate,
+            resonsive : true,
+            paginationContainerSelector: 'div.xn-pagination .item-container'
         });
-
-        $(".viewport.plugin.hero").carousel('render', images);
-
+        $.getJSON('js/data.json', function (data) {
+            $(".xn-viewport.plugin.hero").xnCarousel('render', data.results);
+        });
     });
 
 </script>
