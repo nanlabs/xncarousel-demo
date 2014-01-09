@@ -7,15 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Carousel Demo</title>
+    <title>xnCarousel Demo</title>
 
 
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/photo-xncarousel.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="less/style.less">
-    <link rel="stylesheet/less" type="text/css" href="less/photo.less">
 
     <script src="js/less-1.5.0.min.js"></script>
 
@@ -34,8 +32,6 @@
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-
-
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,16 +39,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Carousel</a>
+            <a class="navbar-brand" href="https://github.com/nanlabs/xncarousel">xnCarousel</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Hero</a></li>
-                <li><a href="herodesktop.html">Hero (Desktop)</a></li>
-                <li><a href="photo.html">Photo</a></li>
-                <li class="active"><a href="#">Photo (Desktop)</a></li>
-                <li><a href="noanim.html">No Animation</a></li>
-                <li><a href="API.html">Carousel API</a></li>
+                <li class="logo"><a href="http://www.nan-labs.com"><img class="logo" src="https://2.gravatar.com/avatar/8c03bfa6a23120303b82a855f371b702?d=https%3A%2F%2Fidenticons.github.com%2F2429fbcab8801d03f7c0b0c75332cef4.png&r=x&s=140"/></a>
+                </li>
+                <li><a href="index.html">Wide</a></li>
+                <li class="active"><a href="#">Gallery</a></li>
+                <li><a href="responsive.html">Responsive</a></li>
+                <li><a href="API.html">xnCarousel API</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -61,8 +57,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Photo Carousel</h1>
-        <p>This example shows a <strong>photo</strong> carousel, with more than one item per page and slide transition.</p>
+        <h1>Gallery Carousel</h1>
+        <p>This example shows a <strong>Gallery</strong> carousel, with more than one item per page and slide transition.</p>
         <p class="small">Also notice the items are not just simple images, if you pass the mouse over you'll get a caption.</p>
         <p class="small">Scrolling is manual and it doesn't loop, if you reach the end, the "next" arrow will disappear.</p>
     </div>
@@ -93,48 +89,47 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
-<script src="js/jquery.xnCarousel.js"></script>
+<script src="./bower_components/xnCarousel/dist/jquery.xnCarousel.js"></script>
 <script type="text/javascript">
 
-    var randomizeColor = function() {
-        var color = Math.floor(Math.random() * 256).toString(16);
-
-        if(color.length == 1) { color += '0'; }
-
-        return color;
-    };
-
-    var buildImageUrl = function(item, size) {
-        var delay = item.delay || 0;
-        return  "http://deelay.me/" + delay + "/http://dummyimage.com/" + size + "/" + randomizeColor() + randomizeColor() + randomizeColor() + ".png&text=%23%20" + item.id;
-    };
+        var buildImageUrl = function(item, size) {
+            var src = item.src.replace('[resolution]',size);
+            var delay = item.delay || 0;
+            return "http://deelay.me/" + delay + "/" + src; 
+        };
 
 
-    var itemTemplate = function(item) {
-        var itemTemplate = '<span class="thumbnail-wrapper">';
-        itemTemplate += '<figure>';
-        itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item, "210x170") + '"/>';
-        itemTemplate += '<figcaption>' + item.name+'</figcaption>';
-        itemTemplate += '</figure>';
-        itemTemplate += '</span>';      
-        return itemTemplate;
-    };
+        var itemTemplate = function(item) {
+            var itemTemplate = '<span class="thumbnail-wrapper">';
+            itemTemplate += '<figure>';
+            itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item,'600x450') + '"/>';
+            itemTemplate += '<figcaption>' + item.title + '</figcaption>';
+            itemTemplate += '</figure>';
+            itemTemplate += '</span>';
+            return itemTemplate;
+        };
 
-   
-    $(function() {
-        $.getJSON('js/data.json', function (data) {
+        $(function() {
             $(".xn-viewport.photo-carousel").xnCarousel({
                 touchEnabled: true,
-                pageSize: 4,
+                breakpointsConfiguration : { 
+                    "*..430" : {pageSize : 1},
+                    "431..768" : {pageSize : 2},
+                    "769..*" : {pageSize : 3}
+                },
                 pagingIndicators: true,
                 animationType: 'slide',
                 moveSpeed: 500,
                 avoidLeftRightMargins: true,
-                itemTemplate: itemTemplate
+                itemTemplate: itemTemplate,
+                api: true,
+                resonsive:true,
+                paginationContainerSelector: 'div.xn-pagination .item-container'
             });
 
-            $(".xn-viewport.photo-carousel").xnCarousel('render', data.results);
-        });
+            $.getJSON('js/natgeo.json', function (data) {
+                $(".xn-viewport.photo-carousel").xnCarousel('render', data.results);
+            });
 
     });
 

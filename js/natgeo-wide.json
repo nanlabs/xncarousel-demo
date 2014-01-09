@@ -1,0 +1,22 @@
+{
+    "resolutions": {
+        "small": "100x75",
+        "medium": "600x450",
+        "large": "990x742"
+    },
+    "results": [{
+        "src": "http://tvblogs.nationalgeographic.com/files/2012/10/Space_Dive-mpx-test-dive.jpg",
+        "title": "About to decide?"
+    }, {
+        "src": "http://education.nationalgeographic.com/media/photos/000/309/30943.jpg",
+        "title": "a bit confused?"
+    }, {
+        "src": " http://ngm.nationalgeographic.com/serengeti-lion/assets/i/index/Thunderstorm-index.jpg",
+        "title": "Just relax"
+    }, {
+        "src": "http://ngm.nationalgeographic.com/serengeti-lion/assets/i/index/Alpha-index.jpg",
+        "title": "xnCarousel..."
+    }]
+
+
+}

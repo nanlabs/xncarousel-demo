@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>xnCarousel Demo</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
+
+    <script src="js/less-1.5.0.min.js"></script>
+
+    <style>
+        .xn-viewport .xn-pagination {
+            bottom: 35%;
+        }
+    </style>
+
+<body>
+
+
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="xn-viewport plugin slide photo-carousel">
+                <div class="xn-left-indicator"><div class="chevron-container"><div class="chevron left"></div></div></div>
+                <div class="xn-right-indicator"><div class="chevron-container"><div class="chevron right"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; X-Team / NaN Labs 2013</p>
+    </footer>
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="./bower_components/xnCarousel/dist/jquery.xnCarousel.js"></script>
+<script type="text/javascript">
+
+        var buildImageUrl = function(item, size) {
+            var src = item.src.replace('[resolution]',size);
+            var delay = item.delay || 0;
+            return "http://deelay.me/" + delay + "/" + src; 
+        };
+
+
+        var itemTemplate = function(item) {
+            var itemTemplate = '<span class="thumbnail-wrapper">';
+            itemTemplate += '<figure>';
+            itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item,'600x450') + '"/>';
+            itemTemplate += '<figcaption>' + item.title + '</figcaption>';
+            itemTemplate += '</figure>';
+            itemTemplate += '</span>';
+            return itemTemplate;
+        };
+
+        $(function() {
+            $(".xn-viewport.photo-carousel").xnCarousel({
+                touchEnabled: true,
+                breakpointsConfiguration : { 
+                    "*..430" : {pageSize : 1},
+                    "431..768" : {pageSize : 2},
+                    "769..*" : {pageSize : 3}
+                },
+                pagingIndicators: true,
+                animationType: 'slide',
+                moveSpeed: 500,
+                avoidLeftRightMargins: true,
+                itemTemplate: itemTemplate,
+                api: true,
+                resonsive:true,
+                paginationContainerSelector: 'div.xn-pagination .item-container'
+            });
+
+            $.getJSON('js/natgeo.json', function (data) {
+                $(".xn-viewport.photo-carousel").xnCarousel('render', data.results);
+            });
+
+    });
+
+</script>
+
+</body>
+</html>

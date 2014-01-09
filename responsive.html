@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,26 +10,18 @@
     <title>Carousel Demo</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="less/style.less">
-    <link href="css/photo-xncarousel.css" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="css/mainc164.css?v=9">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- example devices stylesheet -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="js/less-1.5.0.min.js"></script>
+    <script src="./bower_components/jquery/jquery.min.js"></script>
 
     <style>
         /* Move down content because we have a fixed navbar that is 50px tall */
         body {
             padding-top: 50px;
             padding-bottom: 20px;
-        }
-
-        /*Prevent bootstap default behaviour*/
-        .device , .device:before, .device:after {
-            box-sizing: content-box;
-            -webkit-box-sizing: content-box;
         }
     </style>
 
@@ -53,16 +44,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Carousel</a>
+            <a class="navbar-brand" href="https://github.com/nanlabs/xncarousel">xnCarousel</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Hero</a></li>
-                <li><a href="herodesktop.html">Hero (Desktop)</a></li>
-                <li class="active"><a href="#">Photo</a></li>
-                <li><a href="photodesktop.html">Photo (Desktop)</a></li>
-                <li><a href="noanim.html">No Animation</a></li>
-                <li><a href="API.html">Carousel API</a></li>
+                <li class="logo"><a href="http://www.nan-labs.com"><img class="logo" src="https://2.gravatar.com/avatar/8c03bfa6a23120303b82a855f371b702?d=https%3A%2F%2Fidenticons.github.com%2F2429fbcab8801d03f7c0b0c75332cef4.png&r=x&s=140"/></a>
+                </li>
+                <li><a href="index.html">Wide</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li class="active"><a href="#">Responsive</a></li>
+                <li><a href="API.html">xnCarousel API</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -71,8 +62,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Photo Carousel</h1>
-        <p>This example shows a <strong>photo</strong> carousel, with more than one item per page and slide transition.</p>
+        <h1>Responsive xnCarousel</h1>
+        <p>This example shows a <strong>Gallery</strong> carousel, with more than one item per page and slide transition.</p>
         <p class="small">Also notice the items are not just simple images, if you pass the mouse over you'll get a caption.</p>
         <p class="small">Scrolling is manual and it doesn't loop, if you reach the end, the "next" arrow will disappear.</p>
     </div>
@@ -84,7 +75,7 @@
 
     <script type="text/javascript">
         $(window).load(function () {
-            $('iframe').attr('src', '/photocarousel.html');
+            $('iframe').attr('src', '/gallery-responsive.html');
         });
     </script>
 

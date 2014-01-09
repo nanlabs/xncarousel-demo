@@ -1695,7 +1695,7 @@ module.exports = AbstractStrategy.extend({
 
 	calculateItemOffset: function($item) {
 		var itemPositionWithinPage = $item.index() % this.animationObject.pageSize;
-		return this.animationObject.size.initialItemWidth * itemPositionWithinPage;
+		return this.animationObject.size.unitType === 'px' ? $item.outerWidth(true) * itemPositionWithinPage : this.animationObject.size.initialItemWidth * itemPositionWithinPage;
 	},
 
 	_animateItem: function ($currentItem, $nextItem) {
@@ -1842,7 +1842,7 @@ module.exports = AbstractStrategy.extend({
 	},
 
 	calculateItemOffset: function($item) {
-		return this.animationObject.size.initialItemWidth * $item.index();
+		return this.animationObject.size.unitType === 'px' ? $item.outerWidth(true)  * $item.index() : this.animationObject.size.initialItemWidth * $item.index();
 	},
 
 	supportsTouch: function() {
@@ -1850,7 +1850,7 @@ module.exports = AbstractStrategy.extend({
 	},
 
 	animatePartial: function($overview, pcn) {
-		$overview.css('left', pcn + '%');
+		$overview.css('left', pcn + this.animationObject.size.unitType);
 	}
 
 });
@@ -1897,6 +1897,8 @@ module.exports = Class.extend({
 		var defaults = {
 			touchEnabled: false,
 			pageSize: 1,
+			pageSizeIntervals: null,
+			itemWidth: null,
 			animationType: 'none',
 			loadingType: 'lazy',
 			moveSpeed: 1000,
@@ -1904,7 +1906,8 @@ module.exports = Class.extend({
 			pageInterval: 0,
 			showNavigationArrows: 'auto',
 			circularNavigation: false,
-			responsive: true,
+			responsive: false,
+			paginationContainerSelector: null,
 			itemTemplate: function () {
 				return '<div></div>';
 			}
@@ -1914,20 +1917,29 @@ module.exports = Class.extend({
 		this.$viewport.addClass('xn-viewport');
 		this.settings = $.extend({}, defaults, options);
 
+		if (typeof(this.settings.pageSize) !== 'number') {
+			this.settings.pageSizeIntervals =  this.settings.pageSize;
+			this.settings.pageSize = this._getIntervalsProperty(this.settings.pageSizeIntervals);
+		}
+
 		consoleShim();
 
 		this.size = {
 			contentWidth: 0,
 			overviewWidth: 0,
 			initialItemWidth: this.settings.itemWidth ? this.settings.itemWidth : 100 / this.settings.pageSize,
+			itemWidth: null,
 			unitType: this.settings.itemWidth ? "px" : "%"
 		};
 
 		//When the items width is fixed we need to update the paginator as the viewport size changes.
 		if (this.settings.itemWidth){
 			this.settings.pageSize = ~~(this.$viewport.width() / this.settings.itemWidth);
+		}
+		if (this.settings.itemWidth || this.settings.pageSizeIntervals) {
 			$(window).resize($.proxy(this._updatePaginator, this));
 		}
+		
 		this._initPaginationModule();
 
 		this._initializeResponsiveModule(this.settings.responsive);
@@ -2084,7 +2096,8 @@ module.exports = Class.extend({
 	 */
 	getItemIndicesForPage: function (pageNumber) {
 		var indexes = this.pagingModule.getIndicesForPage(pageNumber);
-		if (this.settings.itemWidth && this.settings.animationType === "slide" && indexes.length > 0) {
+		//When fixed size items we always retrieve one more element than the logical pageSize for rendering purposes.
+		if (this.settings.itemWidth && this.settings.animationType === "slide" && indexes.length > 0 && (indexes[indexes.length - 1] < this.getItemCount() -1)) {
 			indexes.push(indexes[indexes.length -1 ] + 1);
 		}
 		return indexes;
@@ -2355,6 +2368,8 @@ module.exports = Class.extend({
 
 		this._startAutomaticPaging();
 
+		this._buildLastPage();
+
 		this._trigger('carousel:rendered');
 	},
 
@@ -2377,18 +2392,22 @@ module.exports = Class.extend({
 				this._disableNavigators();
 				this.goToPage(pageIndex);
 			}, this),
-			paginationContainerSelector : this.settings.paginationContainerSelector || null
+			paginationContainerSelector : this.settings.paginationContainerSelector
 		});
 	},
 
 	_updatePaginator: function () {
-		var pageSize = ~~(this.$viewport.width() / this.settings.itemWidth);
-		if (pageSize !== this.settings.pageSize)  {
+		var pageSize = this.settings.itemWidth ? ~~(this.$viewport.width() / this.settings.itemWidth) : this._getIntervalsProperty(this.settings.pageSizeIntervals);
+		if (pageSize !== this.settings.pageSize && pageSize > 0)  {
 			var actualPage = this.pagingModule.getCurrentPage(),
 			self = this;
 			this.settings.pageSize = pageSize;
 			this.pagingModule.updatePageSize(pageSize);
 			this.animationModule.updatePageSize(pageSize);
+			if (!this.settings.itemWidth) {
+				this.size.initialItemWidth = 100 / pageSize;
+				this._processAddedItems();
+			}
 			this.animationModule.updateAfterRemoval(this.$viewport.find('.xn-carousel-item'));
 			this.pagingModule.renderIndicator();
 			this.pagingModule.pagingIndicator.select(actualPage);
@@ -2467,6 +2486,7 @@ module.exports = Class.extend({
 			new responsiveModule({
 				getSelectors : $.proxy(this._getCarouselSelectors, this),
 				getStylesheet : $.proxy(this._getCarouselStylesheet, this),
+				getIntervalsProperty : $.proxy(this._getIntervalsProperty, this)
 			}, this.$viewport, responsive);
 		}
 	},
@@ -2526,8 +2546,8 @@ module.exports = Class.extend({
 	},
 
 	_processAddedItem: function($item) {
-		this.animationModule.initItem($item);
 		$item.css({'width': this.size.initialItemWidth + this.size.unitType});
+		this.animationModule.initItem($item);
 	},
 
 	_hasNextPage: function () {
@@ -2551,7 +2571,7 @@ module.exports = Class.extend({
 		var lastPageItems = this.getItemIndicesForPage(this.pagingModule.getLastPage());
 		//isDifferentItem tells if the carousel has next page. When adding a new item in runtime, an inconsistent state
 		// may become between actual rendered page (the last one) and total static pages.
-		var isDifferentItem = this.$overview.find('.active').last().index() !== lastPageItems[lastPageItems.length-1];
+		var isDifferentItem = (this.pagingModule.getCurrentPage() !== this.pagingModule.getPageCount() - 1) || (this.$overview.find('.active').last().index() !== lastPageItems[lastPageItems.length-1]);
 
 		if (displayBlock) {
 			this.$rightIndicator.css('display', 'block');
@@ -2660,11 +2680,9 @@ module.exports = Class.extend({
 	},
 
 	_disableNavigators: function () {
-		if (this.settings.animationType === 'slide') {
-			this.$leftIndicator.off('click', this.leftIndicatorClickHandler);
-			this.$rightIndicator.off('click', this.rightIndicatorClickHandler);
-			this.pagingModule.disableUI();
-		}
+		this.$leftIndicator.off('click', this.leftIndicatorClickHandler);
+		this.$rightIndicator.off('click', this.rightIndicatorClickHandler);
+		this.pagingModule.disableUI();
 	},
 
 	_trigger: function (eventName, params) {
@@ -2843,6 +2861,56 @@ module.exports = Class.extend({
 		return this._getDOMItemsForPage(this.getCurrentPage());
 	},
 
+	//this method adresses the case when there are not enough items to fill the last page for fade animation strategy.
+	_buildLastPage: function () {
+		//TODO: remove this condition as this should be available for fixed size items also. Do it when this logic is able to deal with dynamic pages (_updatePaginator()).
+		if (!this.settings.itemWidth) {
+		if (this.settings.animationType === 'fade' && this.$overview.children().length / this.pagingModule.getPageCount() % 2 !== 1) {
+			var newPage,
+			lastItems = this._getDOMItemsForPage(this.pagingModule.getLastPage()).not(this._getDOMItemsForPage(this.pagingModule.getLastPage()-1)).get(),
+			prevPageNotSharedItems = this._getDOMItemsForPage(this.pagingModule.getLastPage()-1).not(this._getDOMItemsForPage(this.pagingModule.getLastPage())).get(),
+			sharedItems = this._getDOMItemsForPage(this.pagingModule.getLastPage()-1).not(prevPageNotSharedItems).get();
+
+			sharedItems = $(sharedItems).clone();
+			$(lastItems[0]).before(sharedItems);
+			newPage = sharedItems.add(lastItems);
+
+			var step = this.settings.itemWidth ? $(lastItems[0]).outerWidth(true) : parseFloat(lastItems[0].style.width, 10);
+			// var count = this.settings.itemWidth ? -(this.pagingModule.pageSize * $(lastItems[0]).outerWidth(true) - this.$overview.outerWidth(true)) : 0;
+			var count = 0;
+			var self = this;
+			$.each(newPage, function (i, el) {
+				$(el).css('left', count + self.size.unitType);
+				count += step;
+			});
+		}
+		}
+	},
+
+	_getIntervalsProperty: function (intervals) {
+		var rule, descending = /\*\.\.([0-9]+)/, ascending = /([0-9]+)\.\.\*/, between = /([0-9]+)\.\.([0-9]+)/,
+		actualViewportWidth = window.innerWidth;
+		for (rule in intervals) {
+			if (intervals.hasOwnProperty(rule)) {
+				if (descending.test(rule) === true) {
+					if (actualViewportWidth <= descending.exec(rule)[1]) {
+						return intervals[rule];
+					}
+				}
+				if (between.test(rule) === true) {
+					if (actualViewportWidth >= between.exec(rule)[1] && actualViewportWidth <= between.exec(rule)[2]) {
+						return intervals[rule];
+					}
+				}
+				if (ascending.test(rule) === true) {
+					if (actualViewportWidth >= ascending.exec(rule)[1]) {
+						return intervals[rule];
+					}
+				}
+			}
+		}
+	},
+
 	//************************************Event Handlers***************************************
 
 	selectItemHandlerTouch: function (e) {
@@ -2924,12 +2992,11 @@ module.exports = Class.extend({
 
 		var overviewWidth = this.$overview.width();
 
-		var dragPcn = amount * 100 / overviewWidth;
+		var dragEscalar = this.settings.itemWidth?amount: amount * 100 / overviewWidth;
 
-		var positionDifference = (currentOffset - dragPcn);
+		var positionDifference = (currentOffset - dragEscalar);
 
-		console.log('updatePageWhileDragging, currentOffset: ' + this.$overview[0].style.left + ', difference: ' + dragPcn);
-
+		console.log('updatePageWhileDragging, currentOffset: ' + this.$overview[0].style.left + ', difference: ' + positionDifference);
 		if (positionDifference >= 30 || positionDifference > -(this.size.contentWidth + 30)) {
 			this.animationModule.animatePartial(positionDifference);
 			this._updateNavigators();
@@ -3461,15 +3528,15 @@ var Carousel = require('./carousel');
 require('jquery-plugin-wrapper').wrap("xnCarousel", Carousel, require('jquery'));
 module.exports = Carousel;
 
-},{"./carousel":41,"jquery":"lrHQu6","jquery-plugin-wrapper":30}],"jquery":[function(require,module,exports){
-module.exports=require('lrHQu6');
-},{}],"lrHQu6":[function(require,module,exports){
+},{"./carousel":41,"jquery":"lrHQu6","jquery-plugin-wrapper":30}],"lrHQu6":[function(require,module,exports){
 /**
  * Helper module to adapt jQuery to CommonJS
  *
  */
 module.exports = jQuery;
 
+},{}],"jquery":[function(require,module,exports){
+module.exports=require('lrHQu6');
 },{}],48:[function(require,module,exports){
 var Class = require('class');
 
@@ -3552,17 +3619,22 @@ module.exports = AbstractStrategy.extend({
 		console.debug('Preloading item');
 
 		var imgSrcAltered =  carouselItemInnerHtml.replace(' src=', ' data-src=');
-		var $itemContent = $(imgSrcAltered); 
+		var $itemContent = $(imgSrcAltered);
 
 		$item.append($itemContent);
 		$item.addClass('proxy');
 
 		this.loadingObject.$overview.append($item);
 	},
-	
+
 	load: function ($item) {
 		console.debug('Loading item');
 		var self = this;
+
+		// Only load items that are not already loaded (ie. has the 'proxy' class)
+		$item = $item.filter(function() {
+			return $(this).hasClass('proxy');
+		});
 		$item.removeClass('proxy');
 		$item.addClass('loading');
 		$item.find('img[data-src]').each(function(){
@@ -4184,32 +4256,13 @@ module.exports = Class.extend({
 	},
 
 	//Determines if this module is active for the actual viewport width based on the provided options.
-	_isActiveForViewportWidth : function (actualViewportWidth) {
+	_isActiveForViewportWidth : function () {
 		if (this.activeIntervals === true) {
 			//this module is active in all resolutions
 			return true;
 		}
-		var rule, descending = /\*\.\.([0-9]+)/, ascending = /([0-9]+)\.\.\*/, between = /([0-9]+)\.\.([0-9]+)/;
-		for (rule in this.activeIntervals) {
-			if (this.activeIntervals.hasOwnProperty(rule)) {
-				if (descending.test(rule) === true) {
-					if (actualViewportWidth <= descending.exec(rule)[1]) {
-						return this.activeIntervals[rule];
-					}
-				}
-				if (between.test(rule) === true) {
-					if (actualViewportWidth >= between.exec(rule)[1] && actualViewportWidth <= between.exec(rule)[2]) {
-						return this.activeIntervals[rule];
-					}
-				}
-				if (ascending.test(rule) === true) {
-					if (actualViewportWidth >= ascending.exec(rule)[1]) {
-						return this.activeIntervals[rule];
-					}
-				}
-			}
-		}
-		return false;
+		var active = this.api.getIntervalsProperty(this.activeIntervals);
+		return active ? active : false;
 	},
 
 	//Whenever a media query changes, it gets the indicated CSS properties from a target stylesheet.
@@ -4349,7 +4402,7 @@ module.exports = Class.extend({
 		var actualAppliedMediaRule = this.mediaStylesProperties.actualAppliedMediaRule, height;
 		
 		if (this.mediaStylesProperties.actualAppliedProperties.height) {
-			if (this._isActiveForViewportWidth(window.innerWidth) === true && (actualAppliedMediaRule !== "noMediaRule")) {
+			if (this._isActiveForViewportWidth() === true && (actualAppliedMediaRule !== "noMediaRule")) {
 					height = window.innerWidth * parseInt(this.mediaStylesProperties.actualAppliedProperties.height, 10) / this.mediaStylesProperties.viewportWidth;
 			} else { //Default css behaviour
 					height = parseInt(this.mediaStylesProperties.actualAppliedProperties.height, 10);

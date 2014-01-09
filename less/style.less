@@ -31,7 +31,7 @@
     width: 72%;
     position: relative;
     bottom: 12%;
-    z-index: 1000;
+    z-index: 100;
     margin: 0 15%;
     .item-container {
         height: 100%;
@@ -155,23 +155,17 @@ div[class*='-indicator'] {
     -webkit-overflow-scrolling: touch;
     position: relative;
 
-    @media (max-width: 2048px) {
-        width: 100%;
-        height: 510px;
-    }
     .xn-overview {
         padding: 0;
         margin: 0;
         position: relative;
-        height: 100%;
-          width: 100%;
+        width: 100%;
         .xn-carousel-item {
             float: left;
             border: 1px solid white;
             position: absolute;
             top: 0;
             background-color: white;
-            height: 100%;
             text-align: center;
             font-size: 1.3vw;
             img {
@@ -180,7 +174,6 @@ div[class*='-indicator'] {
             .thumbnail-wrapper {
                 .thumbnail {
                     width: 100%;
-                    height: 100%;
                 }
             }
         }
@@ -191,16 +184,28 @@ div[class*='-indicator'] {
     }
 
     figcaption {
-        padding-top: 8px;
+        font-size: 1vw;
+        @media (max-width: 1400px) {
+            font-size: 1.5vw;
+        }
+        @media (max-width: 1000px) {
+            font-size: 2vw;
+        }
+        @media (max-width: 600px) {
+            font-size: 3vw;
+        }
+        @media (max-width: 400px) {
+            font-size: 4vw;
+        }
+        padding-top: 2px;
         opacity: 0;
         font-family:"Source Sans Pro", Arial, sans-serif;
         font-weight: 400;
         color: #ccc;
         vertical-align: middle;
         overflow: hidden;
-        z-index: 2;
+        z-index: 1000;
         font-weight: 600;
-        font-size: 2vw;
         display: block;
         position: absolute;
         bottom: 0;
@@ -215,4 +220,16 @@ div[class*='-indicator'] {
           -webkit-transition: opacity .5s;
         }
     }
+}
+
+
+li.logo{
+    padding:0px;
+}
+li.logo a{
+    padding:0px 10px;
+}
+
+img.logo{
+    max-height: 50px;
 }

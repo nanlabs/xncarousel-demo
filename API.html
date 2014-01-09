@@ -13,7 +13,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/photo-xncarousel.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="less/style.less">
 
     <script src="js/less-1.5.0.min.js"></script>
@@ -24,21 +23,27 @@
             padding-top: 50px;
             padding-bottom: 20px;
         }
+
+        .xn-pagination {
+            margin: 2% 15%;
+        }
+
+        .xn-viewport figcaption{
+            padding-top: 0px;
+        }
+
         .col-center {
             margin: 0 auto;
             float: none;
         }
         .carousel-pagination, .state {
-            margin-top: 30px;
+            padding-top: 15px;
         }
         #output-message {
             display: inline-block;
         }
         .hide {
             display: none;
-        }
-        .buttonbar {
-            margin-top: 40px;
         }
         .buttonbar .row {
             margin-bottom: 10px;
@@ -58,8 +63,6 @@
 <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-
-
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -67,25 +70,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Carousel</a>
+                <a class="navbar-brand" href="https://github.com/nanlabs/xncarousel">xnCarousel</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html">Hero</a>
+                    <li class="logo"><a href="http://www.nan-labs.com"><img class="logo" src="https://2.gravatar.com/avatar/8c03bfa6a23120303b82a855f371b702?d=https%3A%2F%2Fidenticons.github.com%2F2429fbcab8801d03f7c0b0c75332cef4.png&r=x&s=140"/></a>
                     </li>
-                    <li><a href="herodesktop.html">Hero (Desktop)</a>
-                    </li>
-                    <li><a href="photo.html">Photo</a>
-                    </li>
-                    <li><a href="photodesktop.html">Photo (Desktop)</a>
-                    </li>
-                    <li><a href="noanim.html">No Animation</a>
-                    </li>
-                    <li class="active"><a href="API.html">Carousel API</a>
-                    </li>
+                    <li><a href="index.html">Wide</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="responsive.html">Responsive</a></li>
+                    <li class="active"><a href="#">xnCarousel API</a></li>
                 </ul>
-            </div>
-            <!--/.nav-collapse -->
+            </div><!--/.nav-collapse -->
         </div>
     </div>
 
@@ -196,29 +192,21 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
-    <script src="js/jquery.xnCarousel.js"></script>
+    <script src="./bower_components/xnCarousel/dist/jquery.xnCarousel.js"></script>
     <script type="text/javascript">
-        var randomizeColor = function() {
-            var color = Math.floor(Math.random() * 256).toString(16);
-
-            if (color.length == 1) {
-                color += '0';
-            }
-
-            return color;
-        };
 
         var buildImageUrl = function(item, size) {
+            var src = item.src.replace('[resolution]',size);
             var delay = item.delay || 0;
-            return "http://deelay.me/" + delay + "/http://dummyimage.com/" + size + "/" + randomizeColor() + randomizeColor() + randomizeColor() + ".png&text=%23%20" + item.id;
+            return "http://deelay.me/" + delay + "/" + src; 
         };
 
 
         var itemTemplate = function(item) {
             var itemTemplate = '<span class="thumbnail-wrapper">';
             itemTemplate += '<figure>';
-            itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item, "210x170") + '"/>';
-            itemTemplate += '<figcaption>' + item.name + '</figcaption>';
+            itemTemplate += '<img class="thumbnail" src="' + buildImageUrl(item,'600x450') + '"/>';
+            itemTemplate += '<figcaption>' + item.title + '</figcaption>';
             itemTemplate += '</figure>';
             itemTemplate += '</span>';
             return itemTemplate;
@@ -226,17 +214,19 @@
 
         $(function() {
             var carousel = $(".xn-viewport.photo-carousel").xnCarousel({
-                touchEnabled: false,
-                pageSize: 3,
+                touchEnabled: true,
+                breakpointsConfiguration : { 
+                    "*..430" : {pageSize : 1},
+                    "431..768" : {pageSize : 2},
+                    "769..*" : {pageSize : 3}
+                },
                 pagingIndicators: true,
                 animationType: 'slide',
                 moveSpeed: 500,
-                height: 170,
-                width: 210,
                 avoidLeftRightMargins: true,
                 itemTemplate: itemTemplate,
                 api: true,
-                responsive: true,
+                resonsive:true,
                 paginationContainerSelector: 'div.xn-pagination .item-container'
             });
 
@@ -385,7 +375,7 @@
                 displayEvent("Page Change Complete: " + from + " -> " + to);
             });
 
-            $.getJSON('js/data.json', function(data) {
+            $.getJSON('js/natgeo.json', function(data) {
                 carousel.render(data.results);
             });
 

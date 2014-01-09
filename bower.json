@@ -1,0 +1,18 @@
+{
+  "name": "xnCarousel-demo",
+  "version": "0.0.1",
+  "description": "xnCarousel demo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nanlabs/xncarousel-demo.git"
+  },
+  "author": "NaN Labs",
+  "license": "NaN",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "~2.0.3",
+    "requirejs": "~2.1.9",
+    "xnCarousel": "http://github.com/nanlabs/xncarousel.git"
+  }
+}
