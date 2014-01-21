@@ -1,23 +1,26 @@
 // Use ECMAScript 5 Strict Mode
 "use strict";
 
-// Define jQuery as AMD module
-define.amd.jQuery = true;
-
 // Set the require.js configuration for your application.
-require.config({
-
-  // Initialize the application with the main application file
-  deps: ["main"],
+var require = {
+	baseUrl: "../",
 
   paths: {
+    "libs": "bower_components",
+    "xnCarousel": "js/jquery.xnCarousel",
+    "jquery": "js/jquery",
+    "less": "js/less-1.5.0.min",
+    "xnDualCarousel" : "js/jquery.xteam.dual_carousel.min"
+  },
 
-    libs: "../../../libs",
-    xnCarousel: "js/jquery.xnCarousel",
-    // Libraries
-    jquery: "js/jquery"
-   
-  }
+  shim: {
+		 xnDualCarousel: {
+			 deps: ['jquery'],
+			 exports: 'jQuery.fn.xnDualCarousel'
+		 },
+     less : {
+        exports : "less"
+     }
+	}
 
-
-});
+}

@@ -1,0 +1,303 @@
+.xn-viewport {
+  width: 100%;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+.xn-viewport .xn-overview {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%;
+}
+.xn-viewport .xn-overview .xn-carousel-item {
+  width: 100%;
+  position: absolute;
+}
+.xn-viewport .xn-overview .xn-carousel-item .thumbnail-wrapper .thumbnail {
+  width: 100%;
+}
+.xn-viewport div[class*='-indicator'] {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  transition: opacity 1s;
+  background-color: black;
+  color: white;
+  z-index: 100;
+}
+.xn-viewport .xn-left-indicator {
+  left: 0;
+}
+.xn-viewport .xn-left-indicator .xn-triangle-left {
+  width: 0;
+  height: 0;
+  border-right: 20px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  float: right;
+  margin-top: 35%;
+  margin-right: 35%;
+}
+.xn-viewport .xn-right-indicator {
+  right: 0;
+}
+.xn-viewport .xn-right-indicator .xn-triangle-right {
+  width: 0;
+  height: 0;
+  border-left: 20px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  float: left;
+  margin-top: 35%;
+  margin-left: 35%;
+}
+.xn-viewport:hover div[class*='-indicator'] {
+  opacity: 0.7;
+}
+.xn-viewport:after {
+  clear: both;
+}
+.xn-pagination {
+  height: 22%;
+  width: 100%;
+  position: relative;
+  bottom: 0px;
+  z-index: 1000;
+  margin: 0 auto;
+}
+.xn-pagination .item-container {
+  height: 100%;
+  display: block;
+  text-align: center;
+  line-height: 38%;
+  margin: 0 auto;
+  padding: 0;
+}
+.xn-pagination .item-container .item {
+  width: 18px;
+  height: 15px;
+  background: #ccc;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 1px 1px 5px 0px #646464;
+  -moz-box-shadow: inset 1px 1px 5px 0px #646464;
+  box-shadow: inset 1px 1px 5px 0px #646464;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0 1%;
+  cursor: pointer;
+}
+.xn-pagination .item-container .item:hover {
+  background: #999;
+}
+.xn-pagination .item-container .item.selected {
+  background: #66a0d7;
+}
+.noSelect {
+  user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+.carousel .chevron:before {
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    height:70%;
+    width:50%;
+    background:#c6c7c7;
+    -webkit-transform:skew(0deg, 38deg) !important;
+    -moz-transform:skew(0deg, 38deg) !important;
+    -ms-transform:skew(0deg, 38deg) !important;
+    -o-transform:skew(0deg, 38deg) !important;
+    transform:skew(0deg, 38deg) !important
+}
+.carousel .chevron:after {
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:70%;
+    width:50%;
+    background:#c6c7c7;
+    -webkit-transform:skew(0deg, -36deg) !important;
+    -moz-transform:skew(0deg, -36deg) !important;
+    -ms-transform:skew(0deg, -36deg) !important;
+    -o-transform:skew(0deg, -36deg) !important;
+    transform:skew(0deg, -36deg) !important
+}
+.carousel .chevron.left {
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -o-transform:rotate(90deg);
+    transform:rotate(90deg)
+}
+.carousel .chevron.right {
+    -webkit-transform:rotate(-90deg);
+    -moz-transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+    -o-transform:rotate(-90deg);
+    transform:rotate(-90deg)
+}
+.carousel {
+  width: 75%;
+  margin: 51px auto;
+}
+.carousel .xn-viewport.xn-dual_carousel {
+  width: 97%;
+  margin: 0 auto;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel {
+  margin-bottom: 1.2%;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .item:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 129px;
+  height: 100%;
+  border-radius: 4px;
+  background: #000;
+  opacity: .6;
+  z-index: 10;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .item:hover:after,
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .selected .item:after {
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  opacity: 0; 
+}
+
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .item:hover:after {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .selected .item:after {
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -ms-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .xn-carousel-item {
+  padding-right: 10px;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel div[class*='-indicator'] {
+  width: 1.4em;
+  height: 50%;
+  top: 27%;
+}
+.index_carousel div[class*='-indicator'] .chevron-container .chevron {
+  width: 136%;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .xn-right-indicator .chevron-container {
+  left: 0;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .xn-left-indicator .chevron-container {
+  right: 0;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .chevron-container {
+  width: 1.2em;
+}
+.carousel .xn-viewport.xn-dual_carousel.index_carousel .chevron-container .chevron {
+  padding: 11% 20%;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .item {
+  width: 100%;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .item figcaption,
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .item .social-toolbar {
+  display: none;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .item img {
+  width: 100%;
+  height: auto;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel div[class*='-indicator'] {
+  width: 8%;
+  height: 22%;
+  top: 36%;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .chevron {
+  padding: 9% 50%;
+}
+.carousel .xn-viewport.xn-dual_carousel .chevron-container {
+  width: 100%;
+  opacity: 1;
+  position: relative;
+  top: 25%;
+}
+.carousel .xn-viewport.xn-dual_carousel .chevron-container:hover {
+  opacity: 1;
+}
+.carousel .xn-viewport.xn-dual_carousel .chevron {
+  position: relative;
+  text-align: center;
+  padding: 14% 20%;
+  margin-bottom: 6px;
+  height: 0px;
+}
+.carousel .xn-viewport.xn-dual_carousel .chevron:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 70%;
+  width: 50%;
+  background: #c6c7c7;
+}
+.carousel .xn-viewport.xn-dual_carousel .chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 70%;
+  width: 50%;
+  background: #c6c7c7;
+}
+.carousel .xn-viewport.xn-dual_carousel .xn-left-indicator {
+  border-radius: 0 12% 12% 0;
+}
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .xn-left-indicator {
+  margin-left: 5px;
+}
+
+.carousel .xn-viewport.xn-dual_carousel .xn-left-indicator .chevron-container {
+  right: 5%;
+}
+.carousel .xn-viewport.xn-dual_carousel .xn-right-indicator {
+  border-radius: 12% 0 0 12%;
+}
+
+.carousel .xn-viewport.xn-dual_carousel.detail_carousel .xn-right-indicator {
+  margin-right: 5px;
+}
+.carousel .xn-viewport.xn-dual_carousel .xn-right-indicator .chevron-container {
+  left: 5%;
+}
+.carousel .xn-viewport.xn-dual_carousel .loading .item {
+  width: 100% !important;
+  height: 100% !important;
+}
+.carousel .xn-viewport.xn-dual_carousel .loading .thumbnail {
+  background: none;
+  height: auto;
+  width: 100%;
+  margin-bottom: 0;
+}
