@@ -3,7 +3,7 @@
 
 // Set the require.js configuration for your application.
 var require = {
-	baseUrl: "../",
+	baseUrl: "./",
 
   paths: {
     "libs": "bower_components",
